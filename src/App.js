@@ -1,15 +1,11 @@
 import "./app.css";
 import Character from "./components/Character";
 import Header from "./components/Header";
-import { getCharacterById } from "./utils/api";
+import Searchfield from "./components/Searchfield";
+import { getAllCharacters } from "./utils/api";
 import { createElement } from "./utils/elements";
 
 function App() {
-  // const title = createElement("h1", {
-  //   className: "pageTitle",
-  //   innerText: "Rick & Morty",
-  // });
-
   const subtext = createElement("h2", {
     className: "pageSubtitle",
     innerText: "--//..api() => queryMaster",
@@ -18,22 +14,26 @@ function App() {
 
   const main = createElement("main");
 
+  const searchBar = Searchfield();
   async function getCharacters() {
-    for (let i = 1; i < 21; i++) {
-      const characterI = await getCharacterById(i);
-      main.append(
-        Character({
-          name: characterI.name,
-          imgSrc: characterI.image,
-          episode: characterI.episode[1],
-        })
-      );
-    }
+    const allCharacters = await getAllCharacters();
+
+    const newCharacters = allCharacters.map((character) =>
+      Character({
+        name: character.name,
+        imgSrc: character.image,
+        location: character.location,
+        origin: character.origin,
+      })
+    );
+
+    main.append(...newCharacters);
   }
   getCharacters();
 
   const container = createElement("div", {
-    children: [header, subtext, main],
+    className: "container",
+    children: [header, subtext, searchBar, main],
   });
   return container;
 }

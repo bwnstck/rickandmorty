@@ -18,7 +18,12 @@ body {
   background: darkslategray;
   font-family: var(--font-family);
 }
-
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 main {
   width: 80%;
   margin: auto;

@@ -2,23 +2,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 
   margin: 1em auto;
   background-color: antiquewhite;
   border-radius: 5px;
   width: 300px;
+
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
-/* 
-.card > * + * {
-  margin: 1rem;
-} */
 
 .card :first-child {
   margin: 2rem;
 }
 .card__title {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
+
+.card__locationHeader,
+.card__originHeader {
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: rebeccapurple;
+}
+
+.card__avatarLocation,
+.card__avatarOrigin {
+  font-weight: 100;
+  margin-top: 5px;
+}
+
 .card__avatar {
   width: 100%;
   border-radius: 5px;
