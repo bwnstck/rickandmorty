@@ -8,7 +8,7 @@ import { createElement } from "./utils/elements";
 function App() {
   const subtext = createElement("h2", {
     className: "pageSubtitle",
-    innerText: "--//..api() => queryMaster",
+    innerText: "...leftClick() on Card for more Info",
   });
   const header = Header();
 

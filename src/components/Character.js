@@ -6,6 +6,10 @@ function Character({ ...props }) {
     className: "card__title",
     innerText: props.name,
   });
+  const titleBack = createElement("div", {
+    className: "card__title",
+    innerText: props.name,
+  });
   const avatar = createElement("img", {
     className: "card__avatar",
     src: props.imgSrc,
@@ -28,22 +32,28 @@ function Character({ ...props }) {
     innerText: props.origin.name,
   });
 
+  const flipCardBack = createElement("div", {
+    className: "card__back",
+  });
+  const flipCardFront = createElement("div", {
+    className: "card__front",
+  });
+  const flipCardInner = createElement("div", {
+    className: "card__inner",
+    children: [flipCardFront, flipCardBack],
+  });
   const characterCard = createElement("div", {
     className: "card",
+    children: [flipCardInner],
   });
-
-  if (originLocation.innerText == avatarLocation.innerText) {
-    characterCard.append(title, originHeader, originLocation, avatar);
-  } else {
-    characterCard.append(
-      title,
-      originHeader,
-      originLocation,
-      locationHeader,
-      avatarLocation,
-      avatar
-    );
-  }
+  flipCardFront.append(title, avatar);
+  flipCardBack.append(
+    titleBack,
+    originHeader,
+    originLocation,
+    locationHeader,
+    avatarLocation
+  );
 
   return characterCard;
 }
