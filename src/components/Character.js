@@ -46,14 +46,19 @@ function Character({ ...props }) {
     className: "card",
     children: [flipCardInner],
   });
+
   flipCardFront.append(title, avatar);
-  flipCardBack.append(
-    titleBack,
-    originHeader,
-    originLocation,
-    locationHeader,
-    avatarLocation
-  );
+  if (originLocation.innerText == avatarLocation.innerText) {
+    flipCardBack.append(titleBack, originHeader, originLocation);
+  } else {
+    flipCardBack.append(
+      titleBack,
+      originHeader,
+      originLocation,
+      locationHeader,
+      avatarLocation
+    );
+  }
 
   return characterCard;
 }
