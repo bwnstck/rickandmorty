@@ -14,9 +14,8 @@ function App() {
 
   const main = createElement("main");
 
-  const searchBar = Searchfield();
-  async function getCharacters() {
-    const allCharacters = await getAllCharacters();
+  async function getCharacters(name) {
+    const allCharacters = await getAllCharacters(name);
 
     const newCharacters = allCharacters.map((character) =>
       Character({
@@ -26,10 +25,11 @@ function App() {
         origin: character.origin,
       })
     );
-
+    main.innerHTML = "";
     main.append(...newCharacters);
   }
   getCharacters();
+  const searchBar = Searchfield(getCharacters);
 
   const container = createElement("div", {
     className: "container",

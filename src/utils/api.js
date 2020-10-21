@@ -5,9 +5,16 @@ export async function getCharacterById(id) {
   return character;
 }
 
-export async function getAllCharacters() {
+export async function getAllCharacters(name) {
   const url = "https://rickandmortyapi.com/api/character/";
-  const response = await fetch(url);
-  const characterData = await response.json();
-  return characterData.results;
+  if (name) {
+    const url = `https://rickandmortyapi.com/api/character/?name=${name}`;
+    const response = await fetch(url);
+    const characterData = await response.json();
+    return characterData.results;
+  } else {
+    const response = await fetch(url);
+    const characterData = await response.json();
+    return characterData.results;
+  }
 }

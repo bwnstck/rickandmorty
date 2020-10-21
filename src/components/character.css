@@ -23,9 +23,7 @@
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.card__front > :first-child {
-  margin: 1rem auto;
-}
+
 .card:active .card__inner {
   transform: rotateY(180deg);
 }
@@ -43,9 +41,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: white;
-  color: black;
+  color: white;
+  background-color: black;
 }
+.card__front > :first-child,
+.card__back > :first-child {
+  margin-top: 2.5rem;
+}
+
 .card__back {
   display: flex;
   flex-direction: column;
@@ -53,9 +56,6 @@
   background-color: white;
   color: black;
   transform: rotateY(180deg);
-}
-.card__back > :first-child {
-  margin-top: 2rem;
 }
 
 .card__title {
@@ -68,6 +68,7 @@
   font-weight: 400;
   font-size: 1.1rem;
   color: rebeccapurple;
+  margin-top: 1.2rem;
 }
 
 .card__avatarLocation,
