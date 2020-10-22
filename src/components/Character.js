@@ -15,6 +15,10 @@ function Character({ ...props }) {
     alt: props.name,
     loading: "lazy",
   });
+  const created = createElement("div", {
+    className: "card__created",
+    innerText: props.created,
+  });
   const locationHeader = createElement("div", {
     className: "card__locationHeader",
     innerText: "Location",
@@ -69,7 +73,8 @@ function Character({ ...props }) {
       originHeader,
       originLocation,
       locationHeader,
-      avatarLocation
+      avatarLocation,
+      created
     );
   }
   flipCardFront.append(title, avatar);

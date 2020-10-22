@@ -55,9 +55,16 @@
   justify-content: flex-start;
   background-color: #539f52;
   color: black;
+  height: 100%;
   transform: rotateY(180deg);
 }
 
+.card__created {
+  justify-self: flex-end;
+}
+.card__avatarLocation {
+  flex-grow: 1;
+}
 .card__back > .card__title {
   text-shadow: 2px 0px 1px #a5c64e, -2px 0px 1px #a5c64e;
   text-shadow: 0px 2px 1px #a5c64e, -2px 0px 1px #a5c64e;

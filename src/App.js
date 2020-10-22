@@ -42,6 +42,7 @@ function App() {
         imgSrc: character.image,
         location: character.location,
         origin: character.origin,
+        created: character.created,
       })
     );
     main.append(...newCharacters);
