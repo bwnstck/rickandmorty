@@ -33,9 +33,17 @@ function Character({ ...props }) {
 
   const flipCardBack = createElement("div", {
     className: "card__back",
+    onclick: (event) => {
+      // !Hint von Leon zum verhindern, dass anderes onclick ausgeführt wird
+      event.stopPropagation();
+      flipCardInner.style.transform = "rotateY(0deg)";
+    },
   });
   const flipCardFront = createElement("div", {
     className: "card__front",
+    onclick: () => {
+      flipCardInner.style.transform = "rotateY(180deg)";
+    },
   });
   const flipCardInner = createElement("div", {
     className: "card__inner",
@@ -47,13 +55,10 @@ function Character({ ...props }) {
   });
   // console.log(props);
 
-  if (props.status == "Alive") {
-    title.innerText = `🟢 ${props.name}`;
-    titleBack.innerText = `🟢 ${props.name}`;
-  } else {
-    title.innerText = `🔴 ${props.name}`;
-    titleBack.innerText = `🔴 ${props.name}`;
-  }
+  const statusIcon = props.status === "Alive" ? "🟢" : "🔴";
+
+  title.innerText = `${statusIcon} ${props.name}`;
+  titleBack.innerText = `${statusIcon} ${props.name}`;
 
   if (originLocation.innerText == avatarLocation.innerText) {
     flipCardBack.append(titleBack, originHeader, originLocation);
