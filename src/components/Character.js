@@ -4,12 +4,11 @@ import { createElement } from "../utils/elements";
 function Character({ ...props }) {
   const title = createElement("div", {
     className: "card__title",
-    innerText: props.name,
   });
   const titleBack = createElement("div", {
     className: "card__title",
-    innerText: props.name,
   });
+
   const avatar = createElement("img", {
     className: "card__avatar",
     src: props.imgSrc,
@@ -46,8 +45,16 @@ function Character({ ...props }) {
     className: "card",
     children: [flipCardInner],
   });
+  // console.log(props);
 
-  flipCardFront.append(title, avatar);
+  if (props.status == "Alive") {
+    title.innerText = `🟢 ${props.name}`;
+    titleBack.innerText = `🟢 ${props.name}`;
+  } else {
+    title.innerText = `🔴 ${props.name}`;
+    titleBack.innerText = `🔴 ${props.name}`;
+  }
+
   if (originLocation.innerText == avatarLocation.innerText) {
     flipCardBack.append(titleBack, originHeader, originLocation);
   } else {
@@ -59,6 +66,7 @@ function Character({ ...props }) {
       avatarLocation
     );
   }
+  flipCardFront.append(title, avatar);
 
   return characterCard;
 }

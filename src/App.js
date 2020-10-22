@@ -19,6 +19,7 @@ function App() {
 
     const newCharacters = allCharacters.map((character) =>
       Character({
+        status: character.status,
         name: character.name,
         imgSrc: character.image,
         location: character.location,
