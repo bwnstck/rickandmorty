@@ -15,7 +15,7 @@ export async function getAllCharacters(name, page = 1) {
   } else {
     const response = await fetch(url);
     const characterData = await response.json();
-    console.log(characterData.results);
+    // console.log(characterData.results);
     return characterData;
   }
 }
