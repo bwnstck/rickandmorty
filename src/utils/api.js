@@ -5,10 +5,10 @@ export async function getCharacterById(id) {
   return character;
 }
 
-export async function getAllCharacters(name) {
-  const url = "https://rickandmortyapi.com/api/character/";
+export async function getAllCharacters(name, page = 1) {
+  let url = `https://rickandmortyapi.com/api/character/?page=${page}`;
   if (name) {
-    const url = `https://rickandmortyapi.com/api/character/?name=${name}`;
+    url += `&name=${name}`;
     const response = await fetch(url);
     const characterData = await response.json();
     return characterData.results;
@@ -16,6 +16,6 @@ export async function getAllCharacters(name) {
     const response = await fetch(url);
     const characterData = await response.json();
     console.log(characterData.results);
-    return characterData.results;
+    return characterData;
   }
 }

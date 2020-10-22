@@ -1,7 +1,7 @@
 import "./searchfield.css";
 import { createElement } from "../utils/elements";
 
-function Searchfield(getCharacters) {
+function Searchfield(main, getCharacters) {
   const searchInput = createElement("input", {
     className: "form__input",
     placeholder: "Type your query",
@@ -14,6 +14,7 @@ function Searchfield(getCharacters) {
       event.preventDefault();
       getCharacters(searchInput.value);
       searchInput.value = "";
+      main.innerHTML = "";
     },
   });
   return form;
