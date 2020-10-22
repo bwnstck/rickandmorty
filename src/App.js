@@ -17,10 +17,7 @@ function App() {
 
   const main = createElement("main");
 
-  const UpButton = createElement("button", {
-    className: "scrollUp__button",
-    innerText: "UP",
-  });
+  const UpButton = Button({ className: "scrollUp__button", innerText: "⬆" });
 
   const scrollUp = createElement("a", {
     className: "scrollUp",
@@ -35,7 +32,6 @@ function App() {
     },
   });
   async function getCharacters(name, page) {
-    console.log("value", name);
     const allCharacters = await getAllCharacters(name, page);
 
     const newCharacters = allCharacters.results.map((character) =>
@@ -53,7 +49,7 @@ function App() {
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
 
-    main.append(loadMoreButton, scrollUp);
+    main.append(scrollUp);
   }
   getCharacters();
   const searchBar = Searchfield({
@@ -67,7 +63,7 @@ function App() {
   const container = createElement("div", {
     className: "container",
     id: "Container",
-    children: [header, subtext, searchBar, main],
+    children: [header, subtext, searchBar, main, loadMoreButton],
   });
   return container;
 }

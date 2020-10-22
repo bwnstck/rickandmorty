@@ -1,3 +1,5 @@
+import "./button.css";
+
 import { createElement } from "../utils/elements";
 
 export default function Button(props) {
