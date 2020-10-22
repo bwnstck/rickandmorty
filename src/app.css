@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Grandstander:wght@100;400;700&display=swap");
+
+:root {
+  --font-family: "Grandstander", cursive;
+}
 *,
 *::before,
 *::after {
@@ -11,4 +16,30 @@ html {
 body {
   margin: 0;
   background: darkslategray;
+  font-family: var(--font-family);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+main {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
+}
+
+.pageTitle {
+  text-align: center;
+  color: white;
+}
+.pageSubtitle {
+  text-align: center;
+  color: white;
+  font-weight: 400;
 }
