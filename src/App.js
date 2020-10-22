@@ -1,5 +1,5 @@
 import "./app.css";
-import Button from "./components/button";
+import Button from "./components/Button";
 import Character from "./components/Character";
 import Header from "./components/Header";
 import Searchfield from "./components/Searchfield";
