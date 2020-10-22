@@ -13,6 +13,7 @@ function Character({ ...props }) {
     className: "card__avatar",
     src: props.imgSrc,
     alt: props.name,
+    loading: "lazy",
   });
   const locationHeader = createElement("div", {
     className: "card__locationHeader",

@@ -9,28 +9,27 @@ import { createElement } from "./utils/elements";
 function App() {
   let lastName = null;
   let nextPage = null;
+
   const subtext = createElement("h2", {
     className: "pageSubtitle",
     innerText: "...leftClick() on Card for more Info",
   });
   const header = Header();
-
   const main = createElement("main");
-
   const UpButton = Button({ className: "scrollUp__button", innerText: "⬆" });
-
   const scrollUp = createElement("a", {
     className: "scrollUp",
     href: "#Container",
     children: [UpButton],
   });
-
   const loadMoreButton = Button({
     innerText: "🧘‍♀️ Load more 🧘‍♀️",
     onclick: () => {
       getCharacters(lastName, nextPage);
     },
   });
+
+  // !Main Function
   async function getCharacters(name, page) {
     const allCharacters = await getAllCharacters(name, page);
 
@@ -44,12 +43,12 @@ function App() {
       })
     );
     main.append(...newCharacters);
-
+    console.log(allCharacters.info.next);
     nextPage = allCharacters.info.next?.match(/\d+/)[0];
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
 
-    main.append(scrollUp);
+    main.append(loadMoreButton, scrollUp);
   }
   getCharacters();
   const searchBar = Searchfield({
@@ -63,8 +62,17 @@ function App() {
   const container = createElement("div", {
     className: "container",
     id: "Container",
-    children: [header, subtext, searchBar, main, loadMoreButton],
+    children: [header, subtext, searchBar, main],
   });
+
+  window.addEventListener("scroll", () => {
+    const offsetY =
+      loadMoreButton.offsetParent.offsetHeight - window.innerHeight - 200;
+    if (offsetY < window.pageYOffset) {
+      loadMoreButton.click();
+    }
+  });
+
   return container;
 }
 
