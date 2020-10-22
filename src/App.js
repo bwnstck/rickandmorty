@@ -48,13 +48,12 @@ function App() {
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
 
-    main.append(loadMoreButton, scrollUp);
+    main.append(scrollUp);
   }
   getCharacters();
   const searchBar = Searchfield({
     onchange: (value) => {
       main.innerHTML = "";
-
       getCharacters(value);
     },
   });
@@ -62,7 +61,7 @@ function App() {
   const container = createElement("div", {
     className: "container",
     id: "Container",
-    children: [header, subtext, searchBar, main],
+    children: [header, subtext, searchBar, main, loadMoreButton],
   });
 
   window.addEventListener("scroll", () => {

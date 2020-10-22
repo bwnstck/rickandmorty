@@ -20,5 +20,6 @@
   bottom: 50px;
 }
 
-main > :last-child {
+.button:disabled {
+  background-color: grey;
 }
