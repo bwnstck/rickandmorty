@@ -16,12 +16,14 @@ function App() {
   });
   const header = Header();
   const main = createElement("main");
-  const UpButton = Button({ className: "scrollUp__button", innerText: "⬆" });
-  const scrollUp = createElement("a", {
+  const UpButton = Button({
     className: "scrollUp",
-    href: "#Container",
-    children: [UpButton],
+    innerText: "⬆",
+    onclick: () => {
+      window.scroll(0, 0);
+    },
   });
+
   const loadMoreButton = Button({
     innerText: "🧘‍♀️ Load more 🧘‍♀️",
     onclick: () => {
@@ -47,8 +49,6 @@ function App() {
     nextPage = allCharacters.info.next?.match(/\d+/)[0];
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
-
-    main.append(scrollUp);
   }
   getCharacters();
   const searchBar = Searchfield({
@@ -61,7 +61,7 @@ function App() {
   const container = createElement("div", {
     className: "container",
     id: "Container",
-    children: [header, subtext, searchBar, main, loadMoreButton],
+    children: [header, subtext, searchBar, main, loadMoreButton, UpButton],
   });
 
   window.addEventListener("scroll", () => {
