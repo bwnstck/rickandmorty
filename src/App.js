@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Searchfield from "./components/Searchfield";
 import { getAllCharacters } from "./utils/api";
 import { createElement } from "./utils/elements";
+import createLoadMoreButton from "./components/Loadmore";
 
 function App() {
   const subtext = createElement("h2", {
@@ -16,8 +17,8 @@ function App() {
 
   async function getCharacters(name) {
     const allCharacters = await getAllCharacters(name);
-
-    const newCharacters = allCharacters.map((character) =>
+    console.log(allCharacters.info.next);
+    const newCharacters = allCharacters.results.map((character) =>
       Character({
         status: character.status,
         name: character.name,
@@ -27,9 +28,12 @@ function App() {
       })
     );
     main.innerHTML = "";
-    main.append(...newCharacters);
+    const LoadMoreButton = createLoadMoreButton(allCharacters.info.next);
+    LoadMoreButton.disabled = !allCharacters.info.next;
+    main.append(...newCharacters, LoadMoreButton);
   }
   getCharacters();
+
   const searchBar = Searchfield(getCharacters);
 
   const container = createElement("div", {

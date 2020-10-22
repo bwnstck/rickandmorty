@@ -15,7 +15,14 @@ export async function getAllCharacters(name) {
   } else {
     const response = await fetch(url);
     const characterData = await response.json();
-    console.log(characterData.results);
-    return characterData.results;
+    // console.log(characterData.results);
+    return characterData;
   }
+}
+export async function getNextPage(urlQuery) {
+  const url = urlQuery;
+  const response = await fetch(url);
+  const characterData = await response.json();
+  // console.log(characterData.results);
+  return characterData;
 }
