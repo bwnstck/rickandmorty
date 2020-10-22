@@ -2,7 +2,7 @@ import "./app.css";
 import Character from "./components/Character";
 import Header from "./components/Header";
 import Searchfield from "./components/Searchfield";
-import { getAllCharacters } from "./utils/api";
+import { getAllCharacters, getNextPage } from "./utils/api";
 import { createElement } from "./utils/elements";
 import createLoadMoreButton from "./components/Loadmore";
 
@@ -15,9 +15,17 @@ function App() {
 
   const main = createElement("main");
 
-  async function getCharacters(name) {
-    const allCharacters = await getAllCharacters(name);
+  async function getCharacters(name, url) {
+    let allCharacters = await getAllCharacters(name);
+    console.log(name);
+    console.log(url);
     console.log(allCharacters.info.next);
+    if (allCharacters.info.next == "undefined") {
+      console.log("nextPage");
+      allCharacters = await getNextPage(url);
+    }
+
+    // console.log(allCharacters.info.next);
     const newCharacters = allCharacters.results.map((character) =>
       Character({
         status: character.status,
@@ -27,8 +35,13 @@ function App() {
         origin: character.origin,
       })
     );
+
     main.innerHTML = "";
-    const LoadMoreButton = createLoadMoreButton(allCharacters.info.next);
+
+    const LoadMoreButton = createLoadMoreButton({
+      innerText: "Load More 🧘‍♀️",
+      onclick: () => getCharacters(name, url),
+    });
     LoadMoreButton.disabled = !allCharacters.info.next;
     main.append(...newCharacters, LoadMoreButton);
   }
