@@ -3,8 +3,9 @@ import Button from "./components/button";
 import Character from "./components/Character";
 import Header from "./components/Header";
 import Searchfield from "./components/Searchfield";
-import { getAllCharacters } from "./utils/api";
+import { getAllCharacters, getNextPage } from "./utils/api";
 import { createElement } from "./utils/elements";
+import createLoadMoreButton from "./components/Loadmore";
 
 function App() {
   let lastName = null;
@@ -17,6 +18,7 @@ function App() {
 
   const main = createElement("main");
 
+<<<<<<< HEAD
   const UpButton = createElement("button", {
     className: "scrollUp__button",
     innerText: "UP",
@@ -38,6 +40,19 @@ function App() {
     console.log("value", name);
     const allCharacters = await getAllCharacters(name, page);
 
+=======
+  async function getCharacters(name, url) {
+    let allCharacters = await getAllCharacters(name);
+    console.log(name);
+    console.log(url);
+    console.log(allCharacters.info.next);
+    if (allCharacters.info.next == "undefined") {
+      console.log("nextPage");
+      allCharacters = await getNextPage(url);
+    }
+
+    // console.log(allCharacters.info.next);
+>>>>>>> LoadMore
     const newCharacters = allCharacters.results.map((character) =>
       Character({
         status: character.status,
@@ -47,22 +62,19 @@ function App() {
         origin: character.origin,
       })
     );
-    main.append(...newCharacters);
 
-    nextPage = allCharacters.info.next?.match(/\d+/)[0];
-    loadMoreButton.disabled = !allCharacters.info.next;
-    lastName = name;
+    main.innerHTML = "";
 
-    main.append(loadMoreButton, scrollUp);
+    const LoadMoreButton = createLoadMoreButton({
+      innerText: "Load More 🧘‍♀️",
+      onclick: () => getCharacters(name, url),
+    });
+    LoadMoreButton.disabled = !allCharacters.info.next;
+    main.append(...newCharacters, LoadMoreButton);
   }
   getCharacters();
-  const searchBar = Searchfield({
-    onchange: (value) => {
-      main.innerHTML = "";
 
-      getCharacters(value);
-    },
-  });
+  const searchBar = Searchfield(getCharacters);
 
   const container = createElement("div", {
     className: "container",
