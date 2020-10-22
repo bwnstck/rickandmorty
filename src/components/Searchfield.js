@@ -1,20 +1,18 @@
 import "./searchfield.css";
 import { createElement } from "../utils/elements";
 
-function Searchfield(main, getCharacters) {
-  const searchInput = createElement("input", {
+function Searchfield({ onchange }) {
+  const input = createElement("input", {
     className: "form__input",
     placeholder: "Type your query",
     type: "text",
   });
   const form = createElement("form", {
     className: "form",
-    children: [searchInput],
+    children: [input],
     onsubmit: (event) => {
       event.preventDefault();
-      getCharacters(searchInput.value);
-      searchInput.value = "";
-      main.innerHTML = "";
+      onchange(input.value);
     },
   });
   return form;

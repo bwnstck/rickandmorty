@@ -11,7 +11,7 @@ export async function getAllCharacters(name, page = 1) {
     url += `&name=${name}`;
     const response = await fetch(url);
     const characterData = await response.json();
-    return characterData.results;
+    return characterData;
   } else {
     const response = await fetch(url);
     const characterData = await response.json();
