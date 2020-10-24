@@ -7,6 +7,10 @@
   background-color: rebeccapurple;
 }
 
+.form__input:focus {
+  outline: thin dotted;
+}
+
 .form__input::placeholder {
   color: #a5c64e;
   font-size: 1rem;

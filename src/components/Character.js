@@ -2,6 +2,8 @@ import "./character.css";
 import { createElement } from "../utils/elements";
 
 function Character({ ...props }) {
+  let isFavorite = props.isFavorite;
+
   const title = createElement("div", {
     className: "card__title",
   });
@@ -44,12 +46,43 @@ function Character({ ...props }) {
       flipCardInner.style.transform = "rotateY(0deg)";
     },
   });
+
+  // !Fav-Icon
+  const favouriteChar = createElement("btn", {
+    className: "favouriteButton",
+    innerHTML: isFavorite
+      ? `<i class="fas fa-star"></i>`
+      : `<i class="far fa-star"></i>`,
+    onclick: (event) => {
+      event.stopPropagation();
+      let currentFavorites = JSON.parse(
+        localStorage.getItem("favorites") || "[]"
+      );
+      isFavorite = currentFavorites.includes(props.name);
+
+      if (isFavorite) {
+        currentFavorites = currentFavorites.filter(
+          (favorite) => favorite !== props.name
+        );
+      } else {
+        console.log("else schleife", props.name);
+        currentFavorites.push(props.name);
+      }
+      console.log(currentFavorites);
+      localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+
+      favouriteChar.innerHTML = isFavorite
+        ? `<i class="fas fa-star"></i>`
+        : `<i class="far fa-star"></i>`;
+    },
+  });
   const flipCardFront = createElement("div", {
     className: "card__front",
     onclick: () => {
       flipCardInner.style.transform = "rotateY(180deg)";
     },
   });
+
   const flipCardInner = createElement("div", {
     className: "card__inner",
     children: [flipCardFront, flipCardBack],
@@ -64,7 +97,7 @@ function Character({ ...props }) {
 
   title.innerText = `${statusIcon} ${props.name}`;
   titleBack.innerText = `${statusIcon} ${props.name}`;
-
+  title.append(favouriteChar);
   if (originLocation.innerText == avatarLocation.innerText) {
     flipCardBack.append(titleBack, originHeader, originLocation);
   } else {

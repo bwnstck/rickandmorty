@@ -10,6 +10,8 @@ function App() {
   let lastName = null;
   let nextPage = null;
 
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
   const subtext = createElement("h2", {
     className: "pageSubtitle",
     innerText: "...leftClick() on Card for more Info",
@@ -19,6 +21,9 @@ function App() {
   const UpButton = Button({
     className: "scrollUp",
     innerText: "⬆",
+    // onclick: function () {
+    //    window.scroll(0, 0);
+    // },
     onclick: () => {
       window.scroll(0, 0);
     },
@@ -43,15 +48,16 @@ function App() {
         location: character.location,
         origin: character.origin,
         created: character.created,
+        isFavorite: favorites.includes(character.name),
       })
     );
     main.append(...newCharacters);
-    console.log(allCharacters.info.next);
     nextPage = allCharacters.info.next?.match(/\d+/)[0];
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
   }
   getCharacters();
+
   const searchBar = Searchfield({
     onchange: (value) => {
       main.innerHTML = "";
@@ -61,7 +67,6 @@ function App() {
 
   const container = createElement("div", {
     className: "container",
-    id: "Container",
     children: [header, subtext, searchBar, main, loadMoreButton, UpButton],
   });
 

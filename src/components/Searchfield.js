@@ -12,6 +12,7 @@ function Searchfield({ onchange }) {
     children: [input],
     onsubmit: (event) => {
       event.preventDefault();
+      console.log(input.value);
       onchange(input.value);
     },
   });
