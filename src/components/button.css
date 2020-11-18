@@ -1,5 +1,5 @@
 .button,
-.scrollUp__button {
+.scrollUp {
   background-color: black;
   color: white;
   font-size: 1.3rem;
@@ -8,17 +8,24 @@
   padding: 0.5rem;
   margin: 1rem auto;
 }
-.scrollUp > .scrollUp__button {
-  border-radius: 50%;
+.scrollUp {
+  cursor: pointer;
   width: 60px;
   height: 60px;
-}
-
-.scrollUp {
   position: fixed;
   right: 40px;
   bottom: 50px;
 }
 
-main > :last-child {
+.button:disabled {
+  background-color: grey;
+}
+
+.favouriteButton {
+  /* position: absolute;
+  left: 130px;
+  bottom: 20px; */
+  padding-left: 1rem;
+  color: gold;
+  font-size: 1.7rem;
 }

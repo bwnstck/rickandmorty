@@ -10,18 +10,25 @@ function App() {
   let lastName = null;
   let nextPage = null;
 
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
   const subtext = createElement("h2", {
     className: "pageSubtitle",
     innerText: "...leftClick() on Card for more Info",
   });
   const header = Header();
   const main = createElement("main");
-  const UpButton = Button({ className: "scrollUp__button", innerText: "⬆" });
-  const scrollUp = createElement("a", {
+  const UpButton = Button({
     className: "scrollUp",
-    href: "#Container",
-    children: [UpButton],
+    innerText: "⬆",
+    // onclick: function () {
+    //    window.scroll(0, 0);
+    // },
+    onclick: () => {
+      window.scroll(0, 0);
+    },
   });
+
   const loadMoreButton = Button({
     innerText: "🧘‍♀️ Load more 🧘‍♀️",
     onclick: () => {
@@ -40,29 +47,27 @@ function App() {
         imgSrc: character.image,
         location: character.location,
         origin: character.origin,
+        created: character.created,
+        isFavorite: favorites.includes(character.name),
       })
     );
     main.append(...newCharacters);
-    console.log(allCharacters.info.next);
     nextPage = allCharacters.info.next?.match(/\d+/)[0];
     loadMoreButton.disabled = !allCharacters.info.next;
     lastName = name;
-
-    main.append(loadMoreButton, scrollUp);
   }
   getCharacters();
+
   const searchBar = Searchfield({
     onchange: (value) => {
       main.innerHTML = "";
-
       getCharacters(value);
     },
   });
 
   const container = createElement("div", {
     className: "container",
-    id: "Container",
-    children: [header, subtext, searchBar, main],
+    children: [header, subtext, searchBar, main, loadMoreButton, UpButton],
   });
 
   window.addEventListener("scroll", () => {

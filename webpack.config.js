@@ -3,7 +3,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  // devtool: "inline-source-map",
+  devtool: "inline-source-map",
+  devServer: {
+    port: 9000,
+  },
   plugins: [
     new CleanWebpackPlugin({
       verbose: true,
